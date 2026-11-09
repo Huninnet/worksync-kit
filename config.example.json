@@ -1,0 +1,79 @@
+{
+  "hub": "$OneDrive/WorkBuddySync",
+  "interval_minutes": 30,
+  "interval_note": "自动同步间隔（分钟），install.ps1 注册计划任务时读取；改完重跑 install.ps1 生效。开机触发不受此影响，登录必同步一次。",
+  "note": "hub 指向两端都装了客户端的云盘目录。$OneDrive 自动取系统环境变量，换盘符/换用户名都不用改。换用坚果云/百度网盘：把这里改成对应目录的绝对路径即可。",
+  "status_pages": [
+    "$OneDrive/项目A/00-当前状态.md"
+  ],
+  "status_pages_note": "长期项目的状态页 = 真相源。resume 会把它顶在简报最前面并打印最后更新时间；开工前必须先读，MEMORY.md 里的旧结论一律让位于它。路径换成你自己的项目状态页，可以配多个。",
+  "groups": {
+    "profile": {
+      "label": "身份文件（SOUL / IDENTITY / USER）",
+      "enabled": true,
+      "dst": "profile",
+      "roots": [
+        {
+          "src": "~/.workbuddy/user-<你的账号id>-personal",
+          "patterns": ["*.md"],
+          "exclude": ["BOOTSTRAP.md"]
+        }
+      ]
+    },
+    "memory": {
+      "label": "工作记忆（用户级 + 各工作空间）",
+      "enabled": true,
+      "dst": "memory",
+      "roots": [
+        {
+          "src": "~/.workbuddy/user-<你的账号id>-personal/memory",
+          "dst": "memory/user",
+          "patterns": ["*.md"]
+        }
+      ],
+      "workspace_root": "~/WorkBuddy"
+    },
+    "skills": {
+      "label": "自定义技能",
+      "enabled": true,
+      "dst": "skills",
+      "roots": [
+        {
+          "src": "~/.workbuddy/skills",
+          "patterns": ["*"]
+        }
+      ]
+    },
+    "tool": {
+      "label": "同步工具自身（供新机器取用）",
+      "enabled": true,
+      "dst": "_tool",
+      "roots": [
+        {
+          "src": "~/WorkBuddy/WorkSync",
+          "patterns": ["sync.py", "config.json", "install.ps1", "setup.ps1", "README.md"]
+        }
+      ]
+    },
+    "workspaces": {
+      "label": "工作空间产物（体积大，默认关闭）",
+      "enabled": false,
+      "dst": "workspaces",
+      "roots": [
+        {
+          "src": "~/WorkBuddy",
+          "patterns": ["*"],
+          "exclude": [
+            "WorkSync",
+            ".state.json",
+            "*.wbsync-tmp",
+            "node_modules",
+            "__pycache__",
+            ".venv",
+            "venv"
+          ]
+        }
+      ]
+    }
+  }
+}
